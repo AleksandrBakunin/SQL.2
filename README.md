@@ -4,13 +4,13 @@
 
 ### Задание 1
 
-SELECT CONCAT(s2.first_name, ' ', s2.last_name) staff_name,
-c.city,
-(SELECT COUNT(1) FROM customer c2 WHERE c2.store_id = s.store_id) customers_number
+SELECT CONCAT(s2.first_name, ' ', s2.last_name) staff_name, 
+c.city, 
+(SELECT COUNT(1) FROM customer c2 WHERE c2.store_id = s.store_id) customers_number  
 from store s
-LEFT JOIN staff s2 ON s2.store_id = s.store_id
-LEFT JOIN address a on s.address_id = a.address_id
-LEFT JOIN city c on c.city_id = a.city_id
+LEFT JOIN staff s2 ON s2.store_id = s.store_id 
+LEFT JOIN address a on s.address_id = a.address_id 
+LEFT JOIN city c on c.city_id = a.city_id 
 WHERE (SELECT COUNT(1) FROM customer c2 WHERE c2.store_id = s.store_id) > 300;
 
 ---
