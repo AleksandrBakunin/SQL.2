@@ -25,12 +25,4 @@ WHERE f.`length` > (SELECT AVG(f2.`length`) from film f2);
 
 ### Задание 3
 
-SELECT summs.mon rental_month, summs.summa, COUNT(r.rental_id) number_of_rentals
-FROM
-(SELECT MONTH(p.payment_date) mon, SUM(p.amount) summa
-FROM payment p
-GROUP BY MONTH(p.payment_date)
-ORDER BY summa DESC
-LIMIT 1) summs
-LEFT JOIN rental r ON MONTH(r.rental_date)=summs.mon
-GROUP BY rental_month;
+SELECT summs.mon rental_month, summs.summa, COUNT(r.rental_id) number_of_rentals FROM (SELECT DATE_FORMAT(p.payment_date, '%m.%Y') mon, SUM(p.amount) summa FROM payment p GROUP BY DATE_FORMAT(p.payment_date, '%m.%Y') ORDER BY summa DESC LIMIT 1) summs LEFT JOIN rental r ON DATE_FORMAT(r.rental_date, '%m.%Y')=summs.mon GROUP BY rental_month;
